@@ -2,6 +2,7 @@
 
 ### Usage:
 
+`npm install`
 `npm run build`
 `node ./dist get 'api/products' offset=0 limit=1000`
 
