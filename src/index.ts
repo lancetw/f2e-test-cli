@@ -6,7 +6,12 @@ import * as inquirer from 'inquirer'
 import { createSession, loadData } from './libs'
 import { loadParams } from './util'
 
-require('dotenv-defaults').config()
+import * as path from 'path'
+
+require('dotenv-defaults').config({
+  path: path.resolve(`${__dirname}`, '../.env'),
+  defaults: path.resolve(`${__dirname}`, '../.env.defaults'),
+})
 
 commander.version('0.0.1').description('F2E TEST CLI')
 

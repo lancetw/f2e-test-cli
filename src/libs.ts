@@ -1,7 +1,11 @@
 import axios from 'axios'
 import * as cheerio from 'cheerio'
+import * as path from 'path'
 
-require('dotenv-defaults').config()
+require('dotenv-defaults').config({
+  path: path.resolve(`${__dirname}`, '../.env'),
+  defaults: path.resolve(`${__dirname}`, '../.env.defaults'),
+})
 
 const request = axios.create({
   baseURL: `${process.env.API_ENDPOINT}`,
