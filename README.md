@@ -2,11 +2,12 @@
 
 ### Usage:
 
-`yarn build && yarn link`
+`npm run build && npm install -g`
 
 `f2e-test-cli get 'api/products' offset=0 limit=1000`
 
 #### Input:
+
 ```
 ? username: f2e-candidate
 ? password: P@ssw0rd
