@@ -1,0 +1,50 @@
+import axios from 'axios'
+import * as cheerio from 'cheerio'
+
+require('dotenv-defaults').config()
+
+const request = axios.create({
+  baseURL: `${process.env.API_ENDPOINT}`,
+  timeout: 30000,
+  validateStatus: function(status) {
+    return status >= 200 && status < 303
+  },
+})
+
+export const loadData = async (url: string, params?: Object) => {
+  try {
+    const resp = await request.get(`${url}`, {
+      params,
+    })
+    if (resp.status !== 200) return
+
+    return resp.data
+  } catch (err) {
+    return
+  }
+}
+
+export const createSession = async (username: string, password: string) => {
+  const params = {
+    username,
+    password,
+    csrf: _parseCsrfToken((await request.get('login')).data),
+  }
+  const resp = await request.post('api/auth', params, {
+    maxRedirects: 0,
+  })
+  const cookie = `${_parseCookie(
+    resp.headers['set-cookie'][0]
+  )}; ${_parseCookie(resp.headers['set-cookie'][1])}`
+  request.defaults.headers.Cookie = cookie
+}
+
+const _parseCsrfToken = (text: string): string => {
+  const $ = cheerio.load(text)
+  return $('input[name="csrf"]').attr('value')
+}
+
+const _parseCookie = (value: string) => {
+  const data = value.split(';')
+  return data.length ? value.split(';')[0] : ''
+}
