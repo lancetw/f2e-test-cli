@@ -28,7 +28,7 @@ commander
       // [CONSOLE OUTPUT]
       console.log(data)
     } catch (err) {
-      // pass
+      console.log({})
     }
   })
 
@@ -59,7 +59,7 @@ commander
         // [CONSOLE OUTPUT]
         console.log(data)
       } catch (err) {
-        // pass
+        console.log({})
       }
     })()
   })
