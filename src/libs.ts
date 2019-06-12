@@ -24,7 +24,7 @@ export const loadData = async (url: string, params?: Object) => {
 
     return resp.data
   } catch (err) {
-    return
+    throw err
   }
 }
 
