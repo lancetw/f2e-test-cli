@@ -28,7 +28,9 @@ commander
       // [CONSOLE OUTPUT]
       console.log(data)
     } catch (err) {
-      console.log({})
+      console.log({
+        error: err.message,
+      })
     }
   })
 
@@ -59,7 +61,9 @@ commander
         // [CONSOLE OUTPUT]
         console.log(data)
       } catch (err) {
-        console.log({})
+        console.log({
+          error: err.message,
+        })
       }
     })()
   })
