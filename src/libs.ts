@@ -37,10 +37,14 @@ export const createSession = async (username: string, password: string) => {
   const resp = await request.post('api/auth', params, {
     maxRedirects: 0,
   })
-  const cookie = `${_parseCookie(
-    resp.headers['set-cookie'][0]
-  )}; ${_parseCookie(resp.headers['set-cookie'][1])}`
-  request.defaults.headers.Cookie = cookie
+  if (resp.headers['set-cookie']) {
+    const cookie = `${_parseCookie(
+      resp.headers['set-cookie'][0]
+    )}; ${_parseCookie(resp.headers['set-cookie'][1])}`
+    request.defaults.headers.Cookie = cookie
+  } else {
+    throw new Error('Create session failed')
+  }
 }
 
 const _parseCsrfToken = (text: string): string => {

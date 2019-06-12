@@ -19,13 +19,17 @@ commander
   .command('demo')
   .description('quick test')
   .action(async () => {
-    await createSession(`${process.env.USERNAME}`, `${process.env.PASSWORD}`)
-    const data = await loadData('api/products', {
-      offset: 0,
-      limit: 1000,
-    })
-    // [CONSOLE OUTPUT]
-    console.log(data)
+    try {
+      await createSession(`${process.env.USERNAME}`, `${process.env.PASSWORD}`)
+      const data = await loadData('api/products', {
+        offset: 0,
+        limit: 1000,
+      })
+      // [CONSOLE OUTPUT]
+      console.log(data)
+    } catch (err) {
+      // pass
+    }
   })
 
 commander
@@ -47,12 +51,16 @@ commander
           default: `${process.env.PASSWORD}`,
         },
       ])
-      await createSession(form.username, form.password)
-      const data = await loadData(url, {
-        ...loadParams(params),
-      })
-      // [CONSOLE OUTPUT]
-      console.log(data)
+      try {
+        await createSession(form.username, form.password)
+        const data = await loadData(url, {
+          ...loadParams(params),
+        })
+        // [CONSOLE OUTPUT]
+        console.log(data)
+      } catch (err) {
+        // pass
+      }
     })()
   })
 
